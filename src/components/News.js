@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Slider from 'react-slick';
-import Link from '../components/Link';
+// import Link from '../components/Link';
+import { Outlet, Link } from "react-router-dom";
 import {useState ,useEffect, useRef} from 'react';
 
  

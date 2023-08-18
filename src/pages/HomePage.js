@@ -104,8 +104,9 @@ function HomePage() {
       ];
 
       return(
-
+            <>
             <Home  items={items}  setslider={setslider} faq={faq} secondSlider={secondSlider} />
+            </>
          );
 }
 

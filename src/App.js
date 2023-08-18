@@ -1,7 +1,7 @@
 
 import React  from 'react';
 
-import Route from './components/Route'; 
+// import Route from './components/Route'; 
 import HomePage from './pages/HomePage'; 
 import HeaderPage from './pages/HeaderPage'; 
 import TvPage from './pages/TvPage'; 
@@ -18,105 +18,37 @@ import Sign_inPage from './pages/Sign_inPage';
 import SignUpPage from './pages/SignUpPage'; 
 import ProfilePage from './pages/ProfilePage'; 
 import Upload_i_witnessPage from './pages/Upload_i_witnessPage'; 
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 
   function App() {
   return (
     <div className="App">
-       
-        <Route path="/">
-
-          <HeaderPage />
-            <HomePage />
-            <FooterPage />
-          
-        </Route> 
-
-         <Route path="/tv">
-
-           <HeaderPage />
-            <TvPage />
-            <FooterPage />
-          
-        </Route> 
-
-         <Route path="/on-demand">
-
-            <HeaderPage />
-            <OnDemandPage />
-            <FooterPage />
-          
-        </Route>
-
-        <Route path="/news">
-
-            <HeaderPage />
-            <NewsPage />
-            <FooterPage />
-          
-        </Route>
-
-         <Route path="/radio">
-
-            <HeaderPage />
-            <RadioPage />
-            <FooterPage />
-          
-        </Route> 
-
-        <Route path="/i-witness">
-
-            <HeaderPage />
-            <I_witnessPage />
-            <FooterPage />
-          
-        </Route>
-        <Route path="/viral">
-
-            <HeaderPage />
-            <ViralPage />
-            <FooterPage />
-          
-        </Route>
-
-         <Route path="/contact-us">
-
-            <HeaderPage />
-            <ContactUsPage />
-            <FooterPage />
-          
-        </Route>
-
-        <Route path="/tv-live">
-
-            <HeaderPage />
-            <Tv_livePage />
-            <FooterPage />
-          
-        </Route>
-
-        <Route path="/login">
-            <LoginPage />
-        </Route>
         
-        <Route path="/sign-up">
-            <Sign_inPage />
-        </Route>
-         
 
-          <Route path="/signUp">
-            <SignUpPage />
-        </Route>
+        <Router>
+            <Routes>
+                 <Route path="/" element={ <> <HeaderPage/>  <HomePage /> <FooterPage />  </> } />
+                 <Route path="/tv" element={ <>  <HeaderPage/> <TvPage /> <FooterPage/> </> }   />
+                 <Route path="/on-demand" element={ <>  <HeaderPage/> <OnDemandPage /> <FooterPage/> </> }   />
+                 <Route path="/news" element={ <>  <HeaderPage/> <NewsPage /> <FooterPage/> </> }   />
+                 <Route path="/radio" element={ <>  <HeaderPage/> <RadioPage /> <FooterPage/> </> }   />
+                 <Route path="/i-witness" element={ <>  <HeaderPage/> <I_witnessPage /> <FooterPage/> </> }   />
+                 <Route path="/viral" element={ <>  <HeaderPage/> <ViralPage /> <FooterPage/> </> }   />
+                 <Route path="/contact-us" element={ <>  <HeaderPage/> <ContactUsPage /> <FooterPage/> </> }   />
+                 <Route path="/tv-live" element={ <>  <HeaderPage/> <Tv_livePage /> <FooterPage/> </> }   />
+                 <Route path="/login" element={ <>  <LoginPage/>  </> } />
+                 <Route path="/sign-up" element={ <>  <Sign_inPage/>  </> } />
+                 <Route path="/signUp" element={ <>  <SignUpPage/>  </> } />
+                 <Route path="/profile" element={ <>  <ProfilePage/>  </> } />
+                 <Route path="/upload-i-witness" element={ <>  <Upload_i_witnessPage/>  </> } />
+            </Routes>
+         </Router>
 
-        <Route path="/profile">
-            <ProfilePage />
-        </Route>
-
-        <Route path="/upload-i-witness">
-            <Upload_i_witnessPage />
-        </Route>
-       
-
+ 
+ 
     </div>
   );
 }

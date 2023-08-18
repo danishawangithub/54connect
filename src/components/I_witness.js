@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import Slider from 'react-slick';
-import Link from '../components/Link';
+// import Link from '../components/Link';
+import { Outlet, Link } from "react-router-dom";
 import {useState ,useEffect, useRef} from 'react';
-
+const locationStorage_tokan = localStorage.getItem('token');
+const currentUser = localStorage.getItem('currentUser');
+const obj = JSON.parse(currentUser);
  
+
+
+
 function I_witness(){
  
     
@@ -22,8 +28,19 @@ function I_witness(){
                   </div>
                   <div className="col-md-4 col-lg-4 col-sm-12 col-12">
                      <div className="block-element text-right mob-text-left">
+
+                      {locationStorage_tokan ? (
+                              <>
+                                <Link to="/upload-i-witness" className="submit-btn5"><img src="/assets/images/upload-icon.png" /> Upload</Link>
+                                 </>
+                           ) : (
+                           <>
+                             <Link to="/login" className="submit-btn5"><img src="/assets/images/upload-icon.png" /> Upload</Link>
+                           </>
+                           )}
+
                         
-                        <Link to="/upload-i-witness" className="submit-btn5"><img src="/assets/images/upload-icon.png" /> Upload</Link>
+                        
                      </div>
                   </div>
                </div>

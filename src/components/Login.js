@@ -1,21 +1,24 @@
 import React from 'react';
 import  { Component } from "react";
 import Slider from 'react-slick';
-import Link from '../components/Link';
+// import Link from '../components/Link';
+import { Outlet, Link } from "react-router-dom";
 import {useState ,useEffect, useRef} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import {Route, useNavigate} from 'react-router-dom';
+
+
   
  
 function Login(){
 
-   
-      //const  navigation = useNavigation();
+      
+     const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [validationErrors, setValidationErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+    
 //    useEffect(()=>{
 // 
 //       if(localStorage.getItem('token') != "" && localStorage.getItem('token') != null){
@@ -37,9 +40,14 @@ function Login(){
         axios.post('https://code.rashidashraf.com/54connect/api/login', payload)
         .then((r) => {
             setIsSubmitting(false)
-            localStorage.setItem('token', r.data.token);
 
-               window.location.href = "/";
+              localStorage.setItem('token', r.data.tokan);
+              localStorage.setItem('currentUser', JSON.stringify(r.data.user));
+
+             navigate('/');
+
+
+               //window.location.href = "/";
         })
         .catch((e) => {
             setIsSubmitting(false)

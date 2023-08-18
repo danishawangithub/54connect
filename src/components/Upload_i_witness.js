@@ -1,39 +1,59 @@
 import React, { Component } from "react";
 import Slider from 'react-slick';
-import Link from '../components/Link';
+import { Outlet, Link } from "react-router-dom";
+// import Link from '../components/Link';
 import {useState ,useEffect, useRef} from 'react';
 import axios from 'axios';
  
- 
 function Upload_i_witness(){
 
- const [data, setData] = useState({});
- const [isSubmitting, setIsSubmitting] = useState(false);
-const [validationErrors, setValidationErrors] = useState({});
-const [validationSuccess, setValidationSuccess] = useState({});
  
-      const handleChange = (event) =>{
+   const [dataImage, setDataImage] = useState({});
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const [validationErrors, setValidationErrors] = useState({});
+   const [validationSuccess, setValidationSuccess] = useState({});
+   const [file, setFile] = useState('');
+   const [title, settitle] = useState();
+   const [date, setdate] = useState();
+   const [location, setlocation] = useState();
+   const [description, setdescription] = useState();
+   const [userId, setuserId] = useState('');
+
+         const currentUser = localStorage.getItem('currentUser');
+         const obj = JSON.parse(currentUser);
+          
+
+   const handleChange_image = (event) =>{
 
         event.preventDefault();
-          
-         setData({
-                  ...data,
-                  [event.target.name]: event.target.value,
-            });
-
-      }
+         setDataImage(event.target.files[0]);
+       setFile(URL.createObjectURL(event.target.files[0]));
+        
+   } 
  
       const handleSubmit = (event) => {
 
          event.preventDefault();
           setValidationSuccess({});
           setValidationErrors({});
-          setData({}); 
+
+             
+
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("date", date);
+            formData.append("location", location);
+            formData.append("description", description);
+            formData.append("photo", dataImage);
+            formData.append("user_id", obj.id);
+
+        
           
-         axios.post('https://code.rashidashraf.com/54connect/api/upload_i_witness', data)
+
+         axios.post('https://code.rashidashraf.com/54connect/api/upload_i_witness', formData, )
         .then((r) => {
             setIsSubmitting(false);
-               setData({});
+              
                console.log(r,'dani');
                 setValidationSuccess('success');
 
@@ -48,17 +68,20 @@ const [validationSuccess, setValidationSuccess] = useState({});
                    console.log(e.response.data.errors); 
                 setValidationErrors(e.response.data.errors);
             }
-            // if (e.response.data.error != undefined) {
-            //     setValidationErrors(e.response.data.error);
-            // }
+            if (e.response.data.error != undefined) {
+                setValidationErrors(e.response.data.error);
+            }
                 
         });
 
       }
+
+
     
   return (
       
       <>
+ 
          
           <section class="pad-top-40 pad-bot-80">
          <div class="container">
@@ -85,16 +108,18 @@ const [validationSuccess, setValidationSuccess] = useState({});
                                  type='file'
                                   id="imageUpload"
                                    accept=".png, .jpg, .jpeg"
-                                 onChange={handleChange} />
+                                   name="photo"
+                                  onChange={handleChange_image} />
                                  <label for="imageUpload"></label>
                               </div>
                               <div class="avatar-preview">
-                                 <div id="imagePreview" className="bg-a">
+                                 <div id="imagePreview" className="  dani" style={{ backgroundImage:`url(${file})` }}>
+                                 
                                  </div>
                               </div>
                            </div>
                         </div>
-                       
+                        <img scr={file} />
                         <div class="form-field4">
                            <label class="col-black"> Title </label>   
                            <div class="related">
@@ -103,7 +128,7 @@ const [validationSuccess, setValidationSuccess] = useState({});
                                class="field-style4" 
                                placeholder="Enter Title" 
                                name="title" 
-                               onChange={handleChange} />
+                               onChange={(e)=>{settitle(e.target.value)}} />
                               <span class="info-tag2"> 0 / 200 </span>
                            </div>
                         </div>
@@ -117,7 +142,7 @@ const [validationSuccess, setValidationSuccess] = useState({});
                               class="field-style4" 
                               placeholder="Enter Title" 
                               name="date" 
-                             onChange={handleChange}
+                             onChange={(e)=>{setdate(e.target.value)}}
                               />
                            </div>
                         </div>
@@ -130,10 +155,14 @@ const [validationSuccess, setValidationSuccess] = useState({});
                               class="field-style4" 
                               placeholder="Enter Location" 
                               name="location" 
-                              onChange={handleChange}/>
+                              onChange={(e)=>{setlocation(e.target.value)}}
+                              />
                            </div>
                         </div>
 
+                          
+                          
+ 
 
                          <div class="form-field4">
                            <label class="col-black"> Description </label>   
@@ -142,7 +171,7 @@ const [validationSuccess, setValidationSuccess] = useState({});
                               class="field-style4"
                                placeholder="Enter Description"
                               name="description" 
-                              onChange={handleChange}
+                              onChange={(e)=>{setdescription(e.target.value)}}
                                >
                                   
                                </textarea>

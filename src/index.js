@@ -5,12 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { NavigationProvider } from './context/navigation';
 
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <NavigationProvider>
-    <App />
-  </ NavigationProvider>
-);
+root.render(<App />);
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <NavigationProvider>
+//     <App />
+//   </ NavigationProvider>
+// );
  
 
  
